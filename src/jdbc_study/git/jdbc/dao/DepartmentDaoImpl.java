@@ -23,39 +23,27 @@ public class DepartmentDaoImpl implements DepartmentDao {
    
    @Override
    public List<Department> selectDepartmentByAll()  {
-      List<Department> list = new ArrayList<>();
-      String sql = "select deptno, deptname, floor from department";
-      Connection conn = null;
-      PreparedStatement pstmt = null;
-      ResultSet rs = null;
-      
-      try {
-         conn= MySQLjdbcUtil.getConnection();
-         pstmt = conn.prepareStatement(sql);
-         LOG.debug(pstmt);
-         rs = pstmt.executeQuery();
-         while (rs.next()) {
-			int deptNo = rs.getInt("deptno");
-			String deptName = rs.getString("deptname");
-			int floor = rs.getInt("floor");
-			Department dept = new Department(deptNo,deptName,floor);
-			list.add(dept);
-			
-		}
-      } catch (SQLException e) {
-         e.printStackTrace();
-      } finally {
-    	  try {
-			rs.close();
-			pstmt.close();
-	    	conn.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	  
-      }
-      return list;
-   }
+	      List<Department> list = new ArrayList<>();
+	      String sql = "select deptno, deptname, floor from department";
+	      try (Connection conn = MySQLjdbcUtil.getConnection();
+	            PreparedStatement pstmt = conn.prepareStatement(sql);
+	            ResultSet rs = pstmt.executeQuery()) {
+	         while (rs.next()) {
+	            list.add(getDepartment(rs));
+	         }
 
+	      } catch (SQLException e1) {
+
+	         e1.printStackTrace();
+	      }
+
+	      return list;
+	   }
+
+	   private Department getDepartment(ResultSet rs) throws SQLException {
+	      int deptNo = rs.getInt("deptno");
+	      String deptName = rs.getString("deptname");
+	      int floor = rs.getInt("floor");
+	      return new Department(deptNo, deptName, floor);
+	   }
 }
