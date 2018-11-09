@@ -10,4 +10,7 @@ public interface DepartmentDao {
 	
 	int insertDepartment(Department department) throws SQLException;
 	
+	int deleteDepartment(Department department) throws SQLException;
+	Department selectDepartmentByNo(Department department) throws SQLException;
+	
 }

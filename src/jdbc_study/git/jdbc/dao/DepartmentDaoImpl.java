@@ -63,4 +63,16 @@ public class DepartmentDaoImpl implements DepartmentDao {
 		
 		return res;
 	}
+
+	@Override
+	public int deleteDepartment(Department department) throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Department selectDepartmentByNo(Department department) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
