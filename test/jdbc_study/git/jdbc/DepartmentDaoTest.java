@@ -8,13 +8,15 @@ import javax.swing.JOptionPane;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import jdbc_study.git.jdbc.dao.DepartmentDao;
 import jdbc_study.git.jdbc.dao.DepartmentDaoImpl;
 import jdbc_study.git.jdbc.dto.Department;
 
-
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DepartmentDaoTest {
 
 	static DepartmentDao dao;
@@ -44,7 +46,7 @@ public class DepartmentDaoTest {
 		Assert.assertNotEquals(0, list.size());
 	}
 	
-	@Test
+	/*@Test
 	public void testInsertDepartment() {
 		Department newDept = new Department(4,"자바개발부서",15);
 		try {
@@ -57,16 +59,33 @@ public class DepartmentDaoTest {
 				JOptionPane.showMessageDialog(null, "이미존재하는부서");
 			}
 		}
-	}
+	}*/
+	/*@Test
+	public void testDeleteDepartment() throws SQLException {
+		Department newDept = new Department(4);	
+		int res = dao.deleteDepartment(newDept);
+		Assert.assertEquals(1, res);
+		
+	}	*/
+	
 	@Test
-	public void testDeleteDepartment() {
+	public void testUpdateDepartment() throws SQLException {
+		Department newDept = new Department(4,"자개발dsaf",24);
+		int res = dao.updateDepartment(newDept);
+		Assert.assertEquals(1, res);
+		
 	}
-	@Test
-	public void testUpdateDepartment() {
-	}
-	@Test
-	public void testSelecDepartment() {
+	/*@Test
+	public void testSelecDepartment() throws SQLException {
+		Department newDept = new Department(4);	
+		dao.selectDepartmentByNo(newDept);*/
+		/*
+		List<Department> list = dao.selectDepartmentByAll();
+		for(Department dept : list) {
+			MySQLjdbcUtilTest.LOG.debug(dept);
+		}
+		Assert.assertNotEquals(0, list.size());*/
 		
 	}
 
-}
+
